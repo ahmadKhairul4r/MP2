@@ -29,16 +29,20 @@ export default function AdminWork() {
   }
 
   async function onSubmitData() {
-
-    let res = await fetch('/api/work', {
-      method:'POST',
-      body: JSON.stringify(data),
-    })
-    console.log('res',res)
-
-    // let data = await res.json()
-
-    // console.log('data', data)
+    try{
+      let res = await fetch('/api/work', {
+        method:'POST',
+        body: JSON.stringify(data),
+      })
+      let resData = await res.json()
+      if(!resData.data){
+        throw Error(resData.message)
+      }
+      alert("Data berhasil disimpan dengan id \n"+ resData.data.insertedId)
+    }catch(err){
+      console.error("ERR", err.message)
+      alert(err.message)
+    }
 }
 
 
