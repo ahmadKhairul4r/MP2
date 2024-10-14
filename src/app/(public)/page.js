@@ -9,7 +9,8 @@ export default function About() {
                         <h3 className="w-1/2">Saya seorang mahasiswa aktif Politeknik LP3I Jakarta Semester 5</h3>
                       <div className="w-full py-2">
                             <button className="mx-1 h-9 items-center justify-center px-4  rounded-md bg-amber-500">
-                                <label>Contact</label>
+                                <a href="/contact"><label>Contact</label></a>
+                                
                             </button>
                         </div>
                     </div>
