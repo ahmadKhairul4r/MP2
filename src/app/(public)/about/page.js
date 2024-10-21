@@ -1,7 +1,8 @@
-export default function About(){
-return(
-    <div>
-    Halaman About
-    </div>
-);
+export default function About() {
+    return (
+      <div>
+        tes about
+      </div>
+    );
 }
+  

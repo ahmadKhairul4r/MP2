@@ -1,7 +1,8 @@
-export default function Dashboard(){
-    return(
-        <>
-        Halaman Admin Page
-        </>
-    )
-    }
+export default function Dashboard() {
+    return (
+      <>
+        asdf
+      </>
+    );
+}
+  

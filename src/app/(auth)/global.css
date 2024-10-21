@@ -10,7 +10,7 @@
 }
 
 .btn-link{
-  @apply hover:text-indigo-600 
+    @apply hover:text-indigo-600 
 }
 
 .my-input-text {

@@ -16,6 +16,3 @@ module.exports = {
   },
   plugins: [],
 };
-//Konfigurasi Talwind itu sendiri
-//fungsi talwind untuk class2 yg disediakan, yg membedakan talwind dan css hanya ada di dalam class nya aja
-//gap jarak antara grid2 lainnya
