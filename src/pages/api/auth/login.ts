@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from "../../../lib/mongodb";
 import { setCookie  } from 'cookies-next';
+import { comparePassword, encrypt} from "../../../lib/session"
 
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
@@ -13,22 +14,30 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
                 const body = JSON.parse(req.body)
 
                 if( body.email == ""){
-                    throw new Error('invalid request')
+                    throw new Error('email is required')
                 }
+
                 if( body.password == ""){
-                    throw new Error('invalid request')
+                    throw new Error('password is required')
                 }
-                if( body.email == "admin@mail.com" && body.password == "123"){
-                    setCookie(`${process.env.AUTH_COOKIE_NAME}`, 'value', { req, res, maxAge: 60 * 6 * 24 });
-                }else {
-                    throw new Error('invalid username and password request')
+
+                const users = await db.collection("users")
+                    .find({email: body.email }).toArray(); 
+
+                if( users.length > 0 && await comparePassword(body.password, users[0].password )){
+                    const tokenData = {
+                        id:users[0]._id,
+                        email:users[0].email,
+                        name:users[0].name,
+                    }
+
+                    setCookie(`${process.env.AUTH_COOKIE_NAME}`, await encrypt(tokenData), { req, res, maxAge: 60 * 6 * 24 });
+                }else{
+                    throw new Error('invalid username and password')
                 }
                 
 
-                // const work = await db.collection("work")
-                //     .find({_id: new ObjectId(req.query.id) }).toArray(); 
-
-                res.status(200).json({message: 'Berhasil Login'});
+                res.status(200).json({message: 'login berhasil'});
             }catch(err){
                 res.status(422).json({ message: err.message});
             }

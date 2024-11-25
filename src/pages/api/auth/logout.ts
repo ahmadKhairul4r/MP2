@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { deleteCookie } from 'cookies-next';
 
+import { deleteCookie } from 'cookies-next';
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 
@@ -8,9 +8,9 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
         case "POST":
             try{
                 deleteCookie(`${process.env.AUTH_COOKIE_NAME}`)
-                deleteCookie(`${process.env.AUTH_COOKIE_NAME}`,{req,res});
+                deleteCookie(`${process.env.AUTH_COOKIE_NAME}`, { req, res });
 
-                res.status(200).json({message: 'Logout berhasil'});
+                res.status(200).json({message: 'logout berhasil'});
             }catch(err){
                 res.status(422).json({ message: err.message});
             }
